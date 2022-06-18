@@ -8,6 +8,7 @@
             <form action="/komik/update/<?= $komik['id']; ?>" method="POST" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
                 <input type="hidden" name="slug" value="<?= $komik['slug']; ?>">
+                <input type="hidden" name="sampulLama" value="<?= $komik['sampul']; ?>">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' : ''; ?>" id="floatingInput" placeholder="Judul" name="judul" 
                     value="<?= (old('judul')) ? old('judul') : $komik['judul'] ?>"> 
@@ -27,7 +28,13 @@
                 </div>
 
                 <div class="mb-3">
-                    <input class="form-control" type="file" id="formFile">
+                <div class="col-sm-2">
+                        <img src="/img/<?= $komik['sampul']; ?>" class="img-preview img-thumbnail">
+                    </div>
+                    <input class="form-control <?= ($validation->hasError('sampul')) ? 'is-invalid' : ''; ?>" type="file" name="sampul" id="sampul" onchange="previewImg()">
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('sampul'); ?>
+                    </div>
                 </div>
 
 
